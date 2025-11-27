@@ -29,7 +29,7 @@ jobs:
         run: python generador.py
 
       - name: 6. Guardar video
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: video-resultado
           path: video_techxposed.mp4
