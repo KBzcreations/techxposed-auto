@@ -1,35 +1,34 @@
 name: Robot TechXposed
 
 on:
-  workflow_dispatch: 
+  schedule:
+    - cron: '0 10 * * *' # Se ejecuta todos los días a las 10:00 AM UTC
+  workflow_dispatch: # Botón manual
 
 jobs:
-  crear-video:
+  crear-y-subir:
     runs-on: ubuntu-latest
     
     steps:
-      - name: 1. Descargar mi código
+      - name: 1. Descargar código
         uses: actions/checkout@v2
 
       - name: 2. Instalar Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.9'
 
-      - name: 3. Instalar herramientas de video
+      - name: 3. Instalar herramientas
         run: |
           sudo apt-get update
           sudo apt-get install -y imagemagick
           sudo sed -i 's/none/read,write/g' /etc/ImageMagick-6/policy.xml
+          pip install moviepy decorator imageio google-api-python-client google-auth-oauthlib
 
-      - name: 4. Instalar librerías
-        run: pip install moviepy decorator imageio
-
-      - name: 5. EJECUTAR EL GENERADOR
+      - name: 4. CREAR VIDEO
         run: python generador.py
 
-      - name: 6. Guardar video
-        uses: actions/upload-artifact@v4
-        with:
-          name: video-resultado
-          path: video_techxposed.mp4
+      - name: 5. SUBIR A YOUTUBE
+        env:
+          YOUTUBE_TOKEN: ${{ secrets.YOUTUBE_TOKEN }}
+        run: python subir.py
