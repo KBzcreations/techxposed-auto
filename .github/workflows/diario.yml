@@ -24,7 +24,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick
           sudo sed -i 's/none/read,write/g' /etc/ImageMagick-6/policy.xml
-          pip install moviepy==1.0.3 Pillow==9.5.0 decorator imageio imageio-ffmpeg google-api-python-client google-auth-oauthlib requests gTTS
+          pip install moviepy==1.0.3 Pillow==9.5.0 decorator imageio imageio-ffmpeg google-api-python-client google-auth-oauthlib requests gTTS feedparser
       - name: 4. CREAR VIDEO
         run: python generador.py
 
