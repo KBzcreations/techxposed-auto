@@ -1,0 +1,35 @@
+name: Robot TechXposed
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  crear-video:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 1. Descargar mi código
+        uses: actions/checkout@v2
+
+      - name: 2. Instalar Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: 3. Instalar herramientas de video
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          sudo sed -i 's/none/read,write/g' /etc/ImageMagick-6/policy.xml
+
+      - name: 4. Instalar librerías
+        run: pip install moviepy decorator imageio
+
+      - name: 5. EJECUTAR EL GENERADOR
+        run: python generador.py
+
+      - name: 6. Guardar video
+        uses: actions/upload-artifact@v3
+        with:
+          name: video-resultado
+          path: video_techxposed.mp4
