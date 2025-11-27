@@ -23,8 +23,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y imagemagick
           sudo sed -i 's/none/read,write/g' /etc/ImageMagick-6/policy.xml
-          pip install moviepy==1.0.3 decorator imageio imageio-ffmpeg google-api-python-client google-auth-oauthlib requests
-      - name: 4. CREAR VIDEO
+pip install moviepy==1.0.3 Pillow==9.5.0 decorator imageio imageio-ffmpeg google-api-python-client google-auth-oauthlib requests      - name: 4. CREAR VIDEO
         run: python generador.py
 
       - name: 5. SUBIR A YOUTUBE
